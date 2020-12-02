@@ -32,6 +32,18 @@ func (r *UserRepository) FindOne(id string) (*model.User, error) {
 	return nil, errors.New("user not found")
 }
 
+func (r *UserRepository) FindByIDs(ids []string) (res []*model.User, err error) {
+	res = make([]*model.User, 0, len(ids))
+	for _, id := range ids {
+		for _, item := range r.items {
+			if item.ID == id {
+				res = append(res, item)
+			}
+		}
+	}
+	return res, nil
+}
+
 func NewUserRepository() *UserRepository {
 	items := make([]*model.User, 0, 10)
 	id := 1

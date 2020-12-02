@@ -21,6 +21,10 @@ func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, 
 	return r.todoService.GetTodoOwner(ctx, obj)
 }
 
+func (r *todoResolver) UserLoader(ctx context.Context, obj *model.Todo) (*model.User, error) {
+	return r.userLoader.Load(obj.UserID)
+}
+
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 

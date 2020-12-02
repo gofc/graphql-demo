@@ -1,6 +1,10 @@
 package resolver
 
-import "github.com/gofc/graphql-demo/internal/service"
+import (
+	"github.com/gofc/graphql-demo/internal/dataloader"
+	"github.com/gofc/graphql-demo/internal/repository"
+	"github.com/gofc/graphql-demo/internal/service"
+)
 
 // This file will not be regenerated automatically.
 //
@@ -8,8 +12,12 @@ import "github.com/gofc/graphql-demo/internal/service"
 
 type Resolver struct {
 	todoService *service.TodoService
+	userLoader  *dataloader.UserLoader
 }
 
-func NewResolver(todoService *service.TodoService) *Resolver {
-	return &Resolver{todoService: todoService}
+func NewResolver(repo *repository.Repository) *Resolver {
+	return &Resolver{
+		todoService: service.NewTodoService(repo),
+		userLoader:  dataloader.DefaultUserLoader(repo),
+	}
 }

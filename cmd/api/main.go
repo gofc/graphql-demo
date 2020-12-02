@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/gofc/graphql-demo/internal/repository"
 	"github.com/gofc/graphql-demo/internal/resolver"
-	"github.com/gofc/graphql-demo/internal/service"
 	"github.com/gofc/graphql-demo/pkg/logger"
 	"log"
 	"net/http"
@@ -27,8 +26,7 @@ func main() {
 	})
 	defer logger.Close()
 
-	todoService := service.NewTodoService(repository.NewRepository())
-	rlv := resolver.NewResolver(todoService)
+	rlv := resolver.NewResolver(repository.NewRepository())
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: rlv}))
 
