@@ -1,4 +1,4 @@
-package resolver
+package graph
 
 import (
 	"github.com/gofc/graphql-demo/internal/dataloader"

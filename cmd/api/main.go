@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/gofc/graphql-demo/graph"
 	"github.com/gofc/graphql-demo/internal/repository"
-	"github.com/gofc/graphql-demo/internal/resolver"
 	"github.com/gofc/graphql-demo/pkg/logger"
 	"log"
 	"net/http"
@@ -26,9 +26,9 @@ func main() {
 	})
 	defer logger.Close()
 
-	rlv := resolver.NewResolver(repository.NewRepository())
+	resolver := graph.NewResolver(repository.NewRepository())
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: rlv}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
