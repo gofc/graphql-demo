@@ -5,6 +5,7 @@ package resolver
 
 import (
 	"context"
+
 	"github.com/gofc/graphql-demo/graph/generated"
 	"github.com/gofc/graphql-demo/internal/model"
 )
@@ -18,10 +19,6 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 }
 
 func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
-	return r.todoService.GetTodoOwner(ctx, obj)
-}
-
-func (r *todoResolver) UserLoader(ctx context.Context, obj *model.Todo) (*model.User, error) {
 	return r.userLoader.Load(obj.UserID)
 }
 

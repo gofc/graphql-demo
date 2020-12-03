@@ -30,7 +30,7 @@ func NewTodoRepository() *TodoRepository {
 			ID:     strconv.Itoa(id),
 			Text:   fmt.Sprintf("TodoText %d", id),
 			Done:   false,
-			UserID: "1",
+			UserID: fmt.Sprintf("%d", id),
 		})
 	}
 	return &TodoRepository{id: id, items: items}

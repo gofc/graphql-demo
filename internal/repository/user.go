@@ -41,7 +41,10 @@ func (r *UserRepository) FindByIDs(ids []string) (res []*model.User, err error) 
 			}
 		}
 	}
-	return res, nil
+	if len(res) > 2 {
+		res = res[:len(res)-1]
+	}
+	return
 }
 
 func NewUserRepository() *UserRepository {
