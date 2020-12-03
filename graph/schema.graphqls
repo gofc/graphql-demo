@@ -9,13 +9,16 @@ type Todo {
   user: User
 }
 
+type Article {
+  id: ID!
+  title: String!
+  author: User!
+}
+
 type User {
   id: ID!
   name: String!
-}
-
-type Query {
-  todos: [Todo!]!
+  articles: [Article!]!
 }
 
 input NewTodo {
@@ -23,6 +26,17 @@ input NewTodo {
   userId: String!
 }
 
+input NewArticle{
+  title: String!
+  userId: String!
+}
+
+type Query {
+  todos: [Todo!]!
+  articles: [Article!]!
+}
+
 type Mutation {
   createTodo(input: NewTodo!): Todo!
+  createArticle(input: NewArticle!): Article!
 }
